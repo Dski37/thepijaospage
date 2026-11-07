@@ -134,7 +134,7 @@
     .dato strong { display: block; font-family: "Fraunces", serif; font-size: 1.8rem; color: var(--tierra); margin-bottom: 0.3rem; }
     .dato span { font-size: 0.95rem; color: #555; }
 
-    /* Territory & Real Google Map */
+    /* Territory & Slideshow Container */
     .territorio { background: var(--rio); color: var(--hueso); }
     .territorio h2, .territorio h3, .territorio .sub-tag { color: var(--hueso); }
     .territorio .sub-tag { color: var(--maiz); }
@@ -146,18 +146,35 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.3);
       border: 1px solid rgba(242, 212, 136, 0.3);
     }
-    .map-responsive {
+    
+    /* Dynamic Image Container */
+    .slideshow-responsive {
       position: relative;
       overflow: hidden;
-      padding-bottom: 75%; /* 4:3 aspect ratio */
-      height: 0;
+      width: 100%;
+      height: 380px;
       border-radius: 8px;
     }
-    .map-responsive iframe {
+    .slideshow-img {
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
-      border: 0;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out;
     }
+    .slideshow-img.active {
+      opacity: 1;
+    }
+    .slideshow-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      padding: 0.8rem 1.2rem;
+      font-size: 0.95rem;
+      backdrop-filter: blur(4px);
+    }
+
     .municipios-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.8rem; margin-top: 2rem;
     }
@@ -181,46 +198,44 @@
     .hito time { font-family: "Fraunces", serif; font-weight: 700; color: var(--barro); font-size: 1.25rem; display: block; margin-bottom: 0.4rem; }
     .hito h3 { font-size: 1.5rem; margin-bottom: 0.8rem; color: var(--carbon); }
 
-    /* Culture Cards with Real Side Photos (No Emojis) */
+    /* Culture Cards (2 COLUMNS x 3 ROWS) */
     .cultura { background: var(--carbon); color: #e9dccb; }
     .cultura h2 { color: var(--hueso); }
     .cultura .sub-tag { color: var(--maiz); }
     
     .cultura-grid {
       display: grid;
-      grid-template-columns: 1fr;
-      gap: 2.5rem;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
     }
     .cultura-card {
       background: #2a1c16;
       border-radius: 12px;
       overflow: hidden;
       border-top: 5px solid var(--ocre);
-      display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: 0;
+      display: flex;
+      flex-direction: column;
       box-shadow: 0 8px 25px rgba(0,0,0,0.3);
       transition: var(--transicion);
     }
     .cultura-card:hover { transform: translateY(-4px); border-color: var(--maiz); }
     .cultura-card img {
       width: 100%;
-      height: 100%;
-      min-height: 280px;
+      height: 220px;
       object-fit: cover;
     }
     .cultura-content {
-      padding: 2.5rem;
+      padding: 2rem;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      flex-grow: 1;
     }
-    .cultura-content h3 { color: var(--maiz); font-size: 1.6rem; margin-bottom: 1rem; }
-    .cultura-content p { color: #d6ccbc; font-size: 1.05rem; }
+    .cultura-content h3 { color: var(--maiz); font-size: 1.5rem; margin-bottom: 0.8rem; }
+    .cultura-content p { color: #d6ccbc; font-size: 1rem; line-height: 1.6; }
 
     @media (max-width: 900px) {
-      .cultura-card { grid-template-columns: 1fr; }
-      .cultura-card img { max-height: 220px; }
+      .cultura-grid { grid-template-columns: 1fr; }
     }
 
     /* Slang Box */
@@ -238,7 +253,7 @@
       padding: 0.4rem 1.2rem; border-radius: 20px; font-size: 1.1rem; margin-bottom: 1.2rem;
     }
 
-    /* Gallery Section (Distinct Images from Culture) */
+    /* Gallery Section */
     .galeria-sec { background: var(--hueso); }
     .gallery-grid {
       display: grid;
@@ -332,6 +347,7 @@
       section { padding: 4.5rem 1.25rem; }
       .hero { padding: 7rem 1.25rem 7rem; }
       .slang-box { padding: 2rem; }
+      .slideshow-responsive { height: 260px; }
     }
   </style>
 </head>
@@ -356,7 +372,7 @@
   </header>
 
   <main>
-    <!-- Hero Section (Cleaned up: No badges, no top tags, no buttons) -->
+    <!-- Hero Section -->
     <div class="hero" id="inicio">
       <div class="hero-inner reveal">
         <h1>The <em>Pijao</em> People</h1>
@@ -408,7 +424,7 @@
       </div>
     </section>
 
-    <!-- Section: Territory & Real Interactive Google Map -->
+    <!-- Section: Territory & Auto Slideshow (Local files linked) -->
     <section class="territorio" id="territory">
       <div class="contenedor">
         <div class="sec-header reveal">
@@ -420,21 +436,37 @@
           <div class="texto-largo reveal">
             <p>The ancestral world of the Pijao spans from the high peaks of the Central Andes cordillera down to the warm valley of the Magdalena River. The rivers in this region—such as the Saldaña, Coello, and Magdalena—have always been essential for their survival, serving as fishing spots, transport routes, and sacred spaces.</p>
             <p>Today, most Pijao indigenous reservations (Resguardos) are located in the southern municipalities of Tolima. You can feel their vibrant culture in local traditions, traditional foods, folklore, and community farming.</p>
-            <p>Click on the municipal buttons below to instantly center the interactive real Google Map on each specific Pijao community territory!</p>
+            <p>The sequence below automatically loops every 4 seconds to highlight key Pijao municipalities. Click any button to inspect a specific territory instantly!</p>
 
             <div class="municipios-grid">
-              <button class="municipio-btn active" onclick="updateMapLocation('Coyaima, Tolima, Colombia', this)">Coyaima</button>
-              <button class="municipio-btn" onclick="updateMapLocation('Natagaima, Tolima, Colombia', this)">Natagaima</button>
-              <button class="municipio-btn" onclick="updateMapLocation('Ortega, Tolima, Colombia', this)">Ortega</button>
-              <button class="municipio-btn" onclick="updateMapLocation('Chaparral, Tolima, Colombia', this)">Chaparral</button>
-              <button class="municipio-btn" onclick="updateMapLocation('San Antonio, Tolima, Colombia', this)">San Antonio</button>
-              <button class="municipio-btn" onclick="updateMapLocation('Purificacion, Tolima, Colombia', this)">Purificación</button>
+              <button class="municipio-btn active" onclick="selectSlide(0)">Coyaima</button>
+              <button class="municipio-btn" onclick="selectSlide(1)">Natagaima</button>
+              <button class="municipio-btn" onclick="selectSlide(2)">Ortega</button>
+              <button class="municipio-btn" onclick="selectSlide(3)">Chaparral</button>
+              <button class="municipio-btn" onclick="selectSlide(4)">San Antonio</button>
+              <button class="municipio-btn" onclick="selectSlide(5)">Purificación</button>
             </div>
           </div>
 
+          <!-- Slideshow Box -->
           <div class="map-container-wrapper reveal">
-            <div class="map-responsive">
-              <iframe id="googleMapFrame" src="https://maps.google.com/maps?q=Coyaima,Tolima,Colombia&t=&z=11&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <div class="slideshow-responsive">
+              <!-- Coyaima -->
+              <img class="slideshow-img active" src="coyaima.png" alt="Coyaima Tolima">
+              <!-- Natagaima -->
+              <img class="slideshow-img" src="natagaima.jpg" alt="Natagaima Tolima">
+              <!-- Ortega -->
+              <img class="slideshow-img" src="ortega.jpg" alt="Ortega Tolima">
+              <!-- Chaparral -->
+              <img class="slideshow-img" src="chaparral.jpg" alt="Chaparral Tolima">
+              <!-- San Antonio -->
+              <img class="slideshow-img" src="SanAntonio.png" alt="San Antonio Tolima">
+              <!-- Purificación -->
+              <img class="slideshow-img" src="purificacion.jpg" alt="Purificación Tolima">
+              
+              <div class="slideshow-caption" id="slideshowCaption">
+                <strong>Coyaima:</strong> Major heartland of Pijao reservations and traditional pottery.
+              </div>
             </div>
           </div>
         </div>
@@ -483,7 +515,7 @@
       </div>
     </section>
 
-    <!-- Section: Culture & Traditions (Side Photos, NO EMOJIS) -->
+    <!-- Section: Culture & Traditions (2 Columns x 3 Rows) -->
     <section class="cultura" id="culture">
       <div class="contenedor">
         <div class="sec-header reveal">
@@ -492,54 +524,54 @@
         </div>
 
         <div class="cultura-grid">
-          <!-- Card 1 -->
+          <!-- Card 1: Mother Earth -->
           <article class="cultura-card reveal">
-            <img src="https://images.unsplash.com/photo-1511497584788-876761197069?auto=format&fit=crop&w=800&q=80" alt="Andean mountains and nature">
+            <img src="https://images.pexels.com/photos/618833/pexels-photo-618833.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Nevado del Tolima and Andean forest">
             <div class="cultura-content">
               <h3>Mother Earth (Lulomoy)</h3>
               <p>Spiritual life centers on deep respect for nature. They revere Mother Earth, known spiritually as <em>Lulomoy</em>. Rivers, mountains, and forests are sacred beings that must be protected and respected.</p>
             </div>
           </article>
 
-          <!-- Card 2 -->
+          <!-- Card 2: Corn -->
           <article class="cultura-card reveal">
-            <img src="https://images.unsplash.com/photo-1551754655-cd27e38d2076?auto=format&fit=crop&w=800&q=80" alt="Fresh corn crop">
+            <img src="https://images.pexels.com/photos/547263/pexels-photo-547263.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Native corn crop harvest">
             <div class="cultura-content">
               <h3>Sacred Corn & Gastronomy</h3>
               <p>Corn is the foundation of life and community. From corn, they prepare traditional <em>Chicha</em> (fermented beverage used in rituals), <em>Tamales Tolimenses</em>, and <em>Lechón</em>. They also cook river fish like <em>Viudo de Pescado</em>.</p>
             </div>
           </article>
 
-          <!-- Card 3 -->
+          <!-- Card 3: El Mohan -->
           <article class="cultura-card reveal">
-            <img src="https://images.unsplash.com/photo-1544644181-1484b3fdfc62?auto=format&fit=crop&w=800&q=80" alt="River landscape in Tolima">
+            <img src="https://images.pexels.com/photos/709552/pexels-photo-709552.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Magdalena river stream">
             <div class="cultura-content">
               <h3>El Mohán & Guardians</h3>
               <p>Traditional folklore includes protective spirits like <em>El Mohán</em>, the guardian of rivers and waters. Wise elders and traditional healers (Curanderos) hold essential knowledge about medicinal plants.</p>
             </div>
           </article>
 
-          <!-- Card 4 -->
+          <!-- Card 4: Music -->
           <article class="cultura-card reveal">
-            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80" alt="Folk music and instruments">
+            <img src="https://images.pexels.com/photos/164938/pexels-photo-164938.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Folk music instruments">
             <div class="cultura-content">
               <h3>Music & Celebrations</h3>
               <p>Their musical identity includes regional rhythms like <em>Bambuco</em>, <em>Sanjuanero</em>, and <em>Rajaleña</em>. They play cane flutes (flautas de carrizo), drums, maracas, and the traditional <em>ciempiés</em> instrument during San Juan festivals in June.</p>
             </div>
           </article>
 
-          <!-- Card 5 -->
+          <!-- Card 5: Pottery -->
           <article class="cultura-card reveal">
-            <img src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&w=800&q=80" alt="Handcrafted clay pottery">
+            <img src="https://images.pexels.com/photos/220769/pexels-photo-220769.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Clay pottery craftsmanship">
             <div class="cultura-content">
               <h3>Body Painting & Craftsmanship</h3>
               <p>Historically, Pijao warriors painted their bodies with natural dyes from <em>achiote</em> (bija) and <em>jagua</em>. Today, artisan pottery and weaving preserve these ancient geometric patterns.</p>
             </div>
           </article>
 
-          <!-- Card 6 -->
+          <!-- Card 6: Minga -->
           <article class="cultura-card reveal">
-            <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=800&q=80" alt="Community teamwork">
+            <img src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Community teamwork Minga">
             <div class="cultura-content">
               <h3>The Minga System</h3>
               <p>Community life relies on the <em>Minga</em>—a collective work tradition where community members collaborate to build roads, harvest crops, or organize events for the shared good without monetary pay.</p>
@@ -562,7 +594,7 @@
       </div>
     </section>
 
-    <!-- Section: Gallery (Distinct Images, NO RECYCLING) -->
+    <!-- Section: Gallery -->
     <section class="galeria-sec" id="gallery">
       <div class="contenedor">
         <div class="sec-header reveal">
@@ -573,9 +605,9 @@
 
         <div class="gallery-grid">
           <!-- Gallery Card 1 -->
-          <article class="gallery-card reveal" onclick="openLightbox('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80', 'Andean Mountain Peak Views', 'The majestic Cordillera Central provided natural shelter and strategic advantage for Pijao resistance fighters during the colonial era.')">
+          <article class="gallery-card reveal" onclick="openLightbox('https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg?auto=compress&cs=tinysrgb&w=1200', 'Andean Mountain Peak Views', 'The majestic Cordillera Central provided natural shelter and strategic advantage for Pijao resistance fighters during the colonial era.')">
             <div class="gallery-img-wrapper">
-              <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80" alt="Mountain peak">
+              <img src="https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Cordillera Central peaks">
             </div>
             <div class="gallery-info">
               <h3>Andean Mountain Views</h3>
@@ -585,9 +617,9 @@
           </article>
 
           <!-- Gallery Card 2 -->
-          <article class="gallery-card reveal" onclick="openLightbox('https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=1200&q=80', 'Community Unity and Gathering', 'Local cabildos gather in communal assemblies to discuss territorial defense, education, and cultural revitalization projects.')">
+          <article class="gallery-card reveal" onclick="openLightbox('https://images.pexels.com/photos/2422290/pexels-photo-2422290.jpeg?auto=compress&cs=tinysrgb&w=1200', 'Community Unity and Gathering', 'Local cabildos gather in communal assemblies to discuss territorial defense, education, and cultural revitalization projects.')">
             <div class="gallery-img-wrapper">
-              <img src="https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=600&q=80" alt="Community gathering">
+              <img src="https://images.pexels.com/photos/2422290/pexels-photo-2422290.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Community assembly">
             </div>
             <div class="gallery-info">
               <h3>Community Assemblies</h3>
@@ -597,9 +629,9 @@
           </article>
 
           <!-- Gallery Card 3 -->
-          <article class="gallery-card reveal" onclick="openLightbox('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1200&q=80', 'Lush Tolima Green Valleys', 'The tropical valleys along the Magdalena and Saldaña river basins sustain rich agriculture, coffee, and fruit crops.')">
+          <article class="gallery-card reveal" onclick="openLightbox('https://images.pexels.com/photos/158607/cairn-fog-mystic-background-158607.jpeg?auto=compress&cs=tinysrgb&w=1200', 'Lush Tolima Green Valleys', 'The tropical valleys along the Magdalena and Saldaña river basins sustain rich agriculture, coffee, and fruit crops.')">
             <div class="gallery-img-wrapper">
-              <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=600&q=80" alt="Green valley landscape">
+              <img src="https://images.pexels.com/photos/158607/cairn-fog-mystic-background-158607.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Green valley landscape">
             </div>
             <div class="gallery-info">
               <h3>Lush Tolima Valleys</h3>
@@ -609,9 +641,9 @@
           </article>
 
           <!-- Gallery Card 4 -->
-          <article class="gallery-card reveal" onclick="openLightbox('https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=1200&q=80', 'Traditional Wisdom Holders', 'Elders keep the historical memory alive, teaching the young generation about plants, local history, and respect for elders.')">
+          <article class="gallery-card reveal" onclick="openLightbox('https://images.pexels.com/photos/1139743/pexels-photo-1139743.jpeg?auto=compress&cs=tinysrgb&w=1200', 'Traditional Wisdom Holders', 'Elders keep the historical memory alive, teaching the young generation about plants, local history, and respect for elders.')">
             <div class="gallery-img-wrapper">
-              <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=600&q=80" alt="Elderly person portrait">
+              <img src="https://images.pexels.com/photos/1139743/pexels-photo-1139743.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Elder wisdom keeper">
             </div>
             <div class="gallery-info">
               <h3>Keepers of Oral Memory</h3>
@@ -621,9 +653,9 @@
           </article>
 
           <!-- Gallery Card 5 -->
-          <article class="gallery-card reveal" onclick="openLightbox('https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=1200&q=80', 'Traditional Handmade Textiles', 'Weaving and textile crafts reflect geometric patterns inspired by nature, mountains, and the spiral of rivers.')">
+          <article class="gallery-card reveal" onclick="openLightbox('https://images.pexels.com/photos/4577382/pexels-photo-4577382.jpeg?auto=compress&cs=tinysrgb&w=1200', 'Traditional Handmade Textiles', 'Weaving and textile crafts reflect geometric patterns inspired by nature, mountains, and the spiral of rivers.')">
             <div class="gallery-img-wrapper">
-              <img src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=600&q=80" alt="Handmade fabric">
+              <img src="https://images.pexels.com/photos/4577382/pexels-photo-4577382.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Geometric weaving">
             </div>
             <div class="gallery-info">
               <h3>Traditional Weaving</h3>
@@ -633,9 +665,9 @@
           </article>
 
           <!-- Gallery Card 6 -->
-          <article class="gallery-card reveal" onclick="openLightbox('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=80', 'Protected Nature Reserves', 'Pijao communities fight to preserve natural water sources and native forests from external mining threats.')">
+          <article class="gallery-card reveal" onclick="openLightbox('https://images.pexels.com/photos/15286/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1200', 'Protected Nature Reserves', 'Pijao communities fight to preserve natural water sources and native forests from external mining threats.')">
             <div class="gallery-img-wrapper">
-              <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=600&q=80" alt="Nature reserve">
+              <img src="https://images.pexels.com/photos/15286/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=600" alt="Nature reserve">
             </div>
             <div class="gallery-info">
               <h3>Protected Reserves</h3>
@@ -704,27 +736,59 @@
     <div class="greca" aria-hidden="true"></div>
   </main>
 
-  <!-- Footer (Cleaned: No project name or A2 tags) -->
+  <!-- Footer -->
   <footer>
     <p>Copyright © 2026 · Pueblo Indígena Pijao</p>
     <p>Educational and Cultural Presentation Website</p>
   </footer>
 
   <script>
-    // 1. Google Maps Location Update Functionality
-    function updateMapLocation(locationName, btnElement) {
-      const iframe = document.getElementById('googleMapFrame');
-      const encodedQuery = encodeURIComponent(locationName + ", Tolima, Colombia");
-      iframe.src = `https://maps.google.com/maps?q=${encodedQuery}&t=&z=12&ie=UTF8&iwloc=&output=embed`;
+    // 1. Auto-cycling Slideshow functionality
+    const captions = [
+      "<strong>Coyaima:</strong> Major heartland of Pijao reservations and traditional pottery.",
+      "<strong>Natagaima:</strong> Famous for rich oral folklore, rivers, and ancestral festivals.",
+      "<strong>Ortega:</strong> Key agricultural region with active Pijao cabildos.",
+      "<strong>Chaparral:</strong> Gateway to Andean mountain reserves and natural springs.",
+      "<strong>San Antonio:</strong> High cordillera territory protecting river sources.",
+      "<strong>Purificación:</strong> Historic river town connecting Magdalena valley communities."
+    ];
 
-      // Update active button state
-      document.querySelectorAll('.municipio-btn').forEach(btn => {
-        btn.classList.remove('active');
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slideshow-img');
+    const buttons = document.querySelectorAll('.municipio-btn');
+    const captionEl = document.getElementById('slideshowCaption');
+    let slideTimer;
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
       });
-      btnElement.classList.add('active');
+      buttons.forEach((btn, i) => {
+        btn.classList.toggle('active', i === index);
+      });
+      captionEl.innerHTML = captions[index];
+      currentSlide = index;
     }
 
-    // 2. Bidirectional Scroll Reveal (Appears when scrolling down, fades out and reappears when scrolling back up/down)
+    function nextSlide() {
+      let next = (currentSlide + 1) % slides.length;
+      showSlide(next);
+    }
+
+    function startTimer() {
+      clearInterval(slideTimer);
+      slideTimer = setInterval(nextSlide, 4000); // 4 seconds loop
+    }
+
+    function selectSlide(index) {
+      showSlide(index);
+      startTimer(); // Reset timer on manual click
+    }
+
+    // Initialize automated sequence
+    startTimer();
+
+    // 2. Bidirectional Scroll Reveal
     const observerOptions = {
       root: null,
       rootMargin: '0px 0px -50px 0px',
@@ -754,6 +818,7 @@
     }
 
     function closeLightbox() {
+      document.getElementById('lightbox-img').src = '';
       document.getElementById('lightbox').classList.remove('active');
     }
 
