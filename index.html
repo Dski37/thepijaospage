@@ -1,1 +1,410 @@
-<h1> Pijaos </h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pijaos · Pueblo de la tierra y el río</title>
+  <meta name="description" content="Historia, territorio, cosmovisión y presente del pueblo indígena Pijao del sur del Tolima, Colombia.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,900&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --tierra: #8a3b1f;
+      --barro: #b8572e;
+      --ocre: #d99a3d;
+      --maiz: #f2d488;
+      --hueso: #f6efe3;
+      --carbon: #1e1410;
+      --rio: #2f5d5a;
+      --texto: #3a2a22;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Work Sans", system-ui, sans-serif;
+      color: var(--texto);
+      background: var(--hueso);
+      line-height: 1.7;
+      font-size: 1.05rem;
+    }
+    h1, h2, h3 { font-family: "Fraunces", Georgia, serif; line-height: 1.1; color: var(--carbon); }
+    a { color: inherit; }
+    img, svg { display: block; max-width: 100%; }
+
+    /* Franja con patrón geométrico inspirado en grecas y pintura corporal */
+    .greca {
+      height: 28px;
+      background:
+        linear-gradient(135deg, var(--carbon) 25%, transparent 25%) -14px 0 / 28px 28px,
+        linear-gradient(225deg, var(--carbon) 25%, transparent 25%) -14px 0 / 28px 28px,
+        linear-gradient(315deg, var(--carbon) 25%, transparent 25%) 0 0 / 28px 28px,
+        linear-gradient(45deg, var(--carbon) 25%, transparent 25%) 0 0 / 28px 28px,
+        var(--ocre);
+    }
+
+    /* Navegación */
+    header.nav {
+      position: sticky; top: 0; z-index: 10;
+      background: var(--carbon);
+      color: var(--hueso);
+    }
+    .nav-inner {
+      max-width: 1180px; margin: 0 auto; padding: 0.9rem 1.5rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    }
+    .marca { font-family: "Fraunces", serif; font-weight: 900; font-size: 1.4rem; letter-spacing: 0.04em; text-decoration: none; }
+    .marca span { color: var(--ocre); }
+    nav ul { list-style: none; display: flex; flex-wrap: wrap; gap: 0.3rem 1.4rem; }
+    nav a { text-decoration: none; font-size: 0.92rem; font-weight: 500; opacity: 0.85; }
+    nav a:hover { opacity: 1; color: var(--maiz); }
+
+    /* Portada */
+    .hero {
+      position: relative; overflow: hidden;
+      background: radial-gradient(circle at 78% 30%, var(--ocre) 0 14%, transparent 14.2%),
+                  linear-gradient(170deg, var(--barro) 0%, var(--tierra) 55%, var(--carbon) 100%);
+      color: var(--hueso);
+      padding: 7rem 1.5rem 9rem;
+    }
+    .hero::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 160px;
+      background:
+        linear-gradient(160deg, transparent 50%, #5a2614 50.5%) 0 0 / 50% 100% no-repeat,
+        linear-gradient(200deg, transparent 50%, #4a1f10 50.5%) 100% 0 / 60% 100% no-repeat;
+      opacity: 0.9;
+    }
+    .hero-inner { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; }
+    .etiqueta {
+      display: inline-block; text-transform: uppercase; letter-spacing: 0.25em;
+      font-size: 0.78rem; font-weight: 600; color: var(--maiz);
+      border: 1px solid rgba(242, 212, 136, 0.5); padding: 0.35rem 0.8rem; margin-bottom: 1.6rem;
+    }
+    .hero h1 { color: var(--hueso); font-size: clamp(3.2rem, 10vw, 7.5rem); font-weight: 900; letter-spacing: -0.02em; }
+    .hero h1 em { font-style: normal; color: var(--maiz); }
+    .hero p { max-width: 38rem; margin-top: 1.6rem; font-size: 1.2rem; opacity: 0.92; }
+    .boton {
+      display: inline-block; margin-top: 2.2rem; padding: 0.9rem 1.6rem;
+      background: var(--maiz); color: var(--carbon); font-weight: 600; text-decoration: none;
+      border-radius: 2px; transition: transform .2s ease;
+    }
+    .boton:hover { transform: translateY(-2px); }
+
+    /* Secciones */
+    section { padding: 6rem 1.5rem; }
+    .contenedor { max-width: 1180px; margin: 0 auto; }
+    .sec-titulo { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 2.5rem; }
+    .sec-num { font-family: "Fraunces", serif; color: var(--barro); font-weight: 700; font-size: 1rem; }
+    .sec-titulo h2 { font-size: clamp(2.2rem, 5vw, 3.4rem); }
+    .dos-col { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: start; }
+    .dos-col p + p { margin-top: 1.1rem; }
+    .destacado {
+      font-family: "Fraunces", serif; font-size: 1.5rem; line-height: 1.4; color: var(--tierra);
+      border-left: 4px solid var(--ocre); padding-left: 1.4rem;
+    }
+
+    /* Datos rápidos */
+    .datos { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: rgba(30,20,16,.15); margin-top: 3.5rem; }
+    .dato { background: var(--hueso); padding: 1.6rem 1.4rem; }
+    .dato strong { display: block; font-family: "Fraunces", serif; font-size: 1.6rem; color: var(--tierra); }
+    .dato span { font-size: 0.92rem; }
+
+    /* Territorio */
+    .territorio { background: var(--rio); color: var(--hueso); }
+    .territorio h2, .territorio h3 { color: var(--hueso); }
+    .territorio .sec-num { color: var(--maiz); }
+    .lugares { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.5rem; }
+    .lugares li {
+      list-style: none; border: 1px solid rgba(246,239,227,.4); padding: 0.35rem 0.9rem;
+      border-radius: 999px; font-size: 0.92rem;
+    }
+    .mapa { background: rgba(0,0,0,.15); padding: 1.5rem; border-radius: 4px; }
+    .mapa figcaption { font-size: 0.85rem; opacity: 0.8; margin-top: 0.8rem; }
+
+    /* Línea de tiempo */
+    .historia { background: var(--hueso); }
+    .linea { position: relative; margin-left: 1rem; border-left: 3px solid var(--ocre); }
+    .hito { position: relative; padding: 0 0 2.6rem 2.2rem; }
+    .hito::before {
+      content: ""; position: absolute; left: -11px; top: 0.35rem; width: 19px; height: 19px;
+      background: var(--tierra); transform: rotate(45deg); border: 3px solid var(--hueso);
+    }
+    .hito time { font-family: "Fraunces", serif; font-weight: 700; color: var(--barro); font-size: 1.15rem; }
+    .hito h3 { font-size: 1.45rem; margin: 0.2rem 0 0.5rem; }
+    .hito p { max-width: 46rem; }
+
+    /* Tarjetas de cultura */
+    .cultura { background: var(--carbon); color: #e9dccb; }
+    .cultura h2 { color: var(--hueso); }
+    .cultura .sec-num { color: var(--ocre); }
+    .tarjetas { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+    .tarjeta {
+      background: #2a1c16; padding: 2rem 1.7rem; border-top: 5px solid var(--ocre);
+      transition: transform .25s ease, border-color .25s ease;
+    }
+    .tarjeta:hover { transform: translateY(-4px); border-color: var(--maiz); }
+    .tarjeta svg { width: 54px; height: 54px; margin-bottom: 1.2rem; }
+    .tarjeta h3 { color: var(--maiz); font-size: 1.35rem; margin-bottom: 0.6rem; }
+    .tarjeta p { font-size: 0.98rem; }
+
+    /* Galería de motivos */
+    .galeria { background: var(--maiz); }
+    .motivos { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem; }
+    .motivo { background: var(--hueso); padding: 1.2rem; }
+    .motivo svg { width: 100%; height: auto; aspect-ratio: 1; }
+    .motivo figcaption { font-weight: 600; margin-top: 0.8rem; }
+    .motivo small { display: block; font-weight: 400; font-size: 0.88rem; opacity: 0.8; }
+
+    /* Hoy */
+    .hoy .dos-col { align-items: center; }
+    .lista-hoy { list-style: none; }
+    .lista-hoy li { padding: 1rem 0; border-bottom: 1px solid rgba(30,20,16,.15); display: flex; gap: 1rem; }
+    .lista-hoy li::before { content: "◆"; color: var(--barro); }
+
+    /* Cita */
+    .cita { background: var(--tierra); color: var(--hueso); text-align: center; padding: 5rem 1.5rem; }
+    .cita blockquote { font-family: "Fraunces", serif; font-size: clamp(1.6rem, 3.5vw, 2.5rem); max-width: 52rem; margin: 0 auto; line-height: 1.3; }
+    .cita p { margin-top: 1.2rem; color: var(--maiz); letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.85rem; }
+
+    footer { background: var(--carbon); color: #cbbca8; padding: 2.5rem 1.5rem; font-size: 0.85rem; text-align: center; }
+    footer p + p { margin-top: 0.5rem; opacity: 0.7; }
+
+    @media (max-width: 820px) {
+      .dos-col { grid-template-columns: 1fr; gap: 2.5rem; }
+      nav ul { display: none; }
+      section { padding: 4.5rem 1.25rem; }
+      .hero { padding: 5rem 1.25rem 8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <a class="marca" href="#inicio">PIJA<span>O</span>S</a>
+      <nav aria-label="Principal">
+        <ul>
+          <li><a href="#quienes">Quiénes son</a></li>
+          <li><a href="#territorio">Territorio</a></li>
+          <li><a href="#historia">Historia</a></li>
+          <li><a href="#cultura">Cultura</a></li>
+          <li><a href="#galeria">Galería</a></li>
+          <li><a href="#hoy">Hoy</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="hero" id="inicio">
+      <div class="hero-inner">
+        <span class="etiqueta">Pueblo indígena de Colombia</span>
+        <h1>Pueblo <em>Pijao</em></h1>
+        <p>Guerreros del valle del Magdalena, hijos de la montaña y del río. Un pueblo que resistió a la conquista durante casi un siglo y que hoy sigue defendiendo su identidad, su memoria y su territorio en el corazón del Tolima.</p>
+        <a class="boton" href="#quienes">Conoce su historia</a>
+      </div>
+    </div>
+    <div class="greca" aria-hidden="true"></div>
+
+    <section id="quienes">
+      <div class="contenedor">
+        <div class="sec-titulo"><span class="sec-num">01</span><h2>Quiénes son los Pijaos</h2></div>
+        <div class="dos-col">
+          <div>
+            <p>Los Pijaos son un pueblo indígena originario de las tierras que hoy forman el departamento del Tolima y zonas vecinas del Huila, Quindío y Valle del Cauca, en Colombia. Antes de la llegada de los españoles habitaban las laderas de la cordillera Central y las riberas del río Magdalena y sus afluentes.</p>
+            <p>No eran un único reino, sino una confederación de comunidades emparentadas —entre ellas los Coyaimas y los Natagaimas— que compartían lengua, costumbres y un fuerte sentido de autonomía. Vivían de la agricultura, la caza, la pesca y el intercambio con pueblos vecinos.</p>
+            <p>Los cronistas de la Colonia los describieron como uno de los pueblos más valientes y difíciles de someter de todo el Nuevo Reino de Granada.</p>
+          </div>
+          <p class="destacado">“Pijao” es hoy, para miles de familias tolimenses, mucho más que una palabra del pasado: es una forma de ser, de recordar y de habitar la tierra.</p>
+        </div>
+
+        <div class="datos">
+          <div class="dato"><strong>Tolima</strong><span>Principal territorio ancestral y actual</span></div>
+          <div class="dato"><strong>Siglo XVI–XVII</strong><span>Décadas de resistencia frente a la conquista española</span></div>
+          <div class="dato"><strong>Lengua pijao</strong><span>Considerada extinta, hoy en proceso de recuperación de memoria</span></div>
+          <div class="dato"><strong>Resguardos</strong><span>Comunidades organizadas en el sur del Tolima</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="territorio" id="territorio">
+      <div class="contenedor dos-col">
+        <div>
+          <div class="sec-titulo"><span class="sec-num">02</span><h2>Territorio</h2></div>
+          <p>El mundo pijao se extiende entre las cumbres de la cordillera Central y el valle cálido del Magdalena. Ríos como el Saldaña, el Magdalena y el Coello fueron caminos, fuente de alimento y espacios sagrados.</p>
+          <p style="margin-top:1rem">Hoy la mayoría de las comunidades se concentra en el sur del Tolima, en municipios donde la presencia indígena se siente en los apellidos, la comida, las fiestas y las formas de trabajar la tierra.</p>
+          <ul class="lugares">
+            <li>Coyaima</li>
+            <li>Natagaima</li>
+            <li>Ortega</li>
+            <li>Chaparral</li>
+            <li>Planadas</li>
+            <li>Rioblanco</li>
+            <li>San Antonio</li>
+            <li>Purificación</li>
+          </ul>
+        </div>
+        <figure class="mapa">
+          <svg viewBox="0 0 400 360" role="img" aria-label="Ilustración del territorio pijao entre la cordillera y el río Magdalena">
+            <rect width="400" height="360" fill="#24484a"/>
+            <path d="M0 250 L60 140 L110 200 L170 70 L230 180 L280 110 L340 210 L400 150 L400 360 L0 360 Z" fill="#1b3a3b"/>
+            <path d="M0 290 L80 200 L150 260 L210 170 L290 250 L360 200 L400 240 L400 360 L0 360 Z" fill="#8a3b1f"/>
+            <path d="M170 70 L185 96 L160 98 Z M280 110 L292 130 L270 131 Z" fill="#f6efe3"/>
+            <path d="M330 0 C300 90 360 150 300 220 C250 280 320 320 290 360" stroke="#f2d488" stroke-width="10" fill="none" stroke-linecap="round"/>
+            <path d="M120 360 C150 320 200 300 250 290 C270 285 290 270 300 240" stroke="#f2d488" stroke-width="5" fill="none" stroke-linecap="round" opacity=".8"/>
+            <circle cx="70" cy="60" r="26" fill="#d99a3d"/>
+            <text x="308" y="40" fill="#f6efe3" font-family="Work Sans, sans-serif" font-size="13">Río Magdalena</text>
+            <text x="135" y="345" fill="#f6efe3" font-family="Work Sans, sans-serif" font-size="13">Río Saldaña</text>
+            <text x="110" y="50" fill="#f6efe3" font-family="Work Sans, sans-serif" font-size="13">Cordillera Central</text>
+          </svg>
+          <figcaption>Representación ilustrativa del paisaje pijao: montaña, valle y río.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="historia" id="historia">
+      <div class="contenedor">
+        <div class="sec-titulo"><span class="sec-num">03</span><h2>Historia y resistencia</h2></div>
+        <div class="linea">
+          <article class="hito">
+            <time>Antes de 1500</time>
+            <h3>Un pueblo libre del valle y la montaña</h3>
+            <p>Las comunidades pijaos cultivan maíz, fríjol, yuca y algodón, elaboran cerámica y piezas de orfebrería, y mantienen redes de intercambio con otros pueblos del alto Magdalena.</p>
+          </article>
+          <article class="hito">
+            <time>Siglo XVI</time>
+            <h3>Llegan los conquistadores</h3>
+            <p>Con la fundación de ciudades españolas en la región, los Pijaos enfrentan la invasión de su territorio. Lejos de rendirse, organizan una guerra de resistencia que hace retroceder a los colonizadores y pone en riesgo los caminos entre Santafé, Popayán y Quito.</p>
+          </article>
+          <article class="hito">
+            <time>1600 – 1620</time>
+            <h3>La “Guerra de los Pijaos”</h3>
+            <p>La Corona emprende campañas militares a gran escala contra ellos. La guerra, las enfermedades y los desplazamientos reducen drásticamente la población. Aun así, muchos sobreviven refugiándose en la montaña o integrándose a otras comunidades, y conservan su memoria.</p>
+          </article>
+          <article class="hito">
+            <time>Siglos XVII – XIX</time>
+            <h3>Resguardos y supervivencia</h3>
+            <p>En el sur del Tolima se establecen resguardos como los de Coyaima y Natagaima. A pesar de la pérdida de la lengua y de muchas tierras, se mantienen prácticas agrícolas, medicinales y espirituales propias.</p>
+          </article>
+          <article class="hito">
+            <time>Siglo XX – hoy</time>
+            <h3>Reorganización y reconocimiento</h3>
+            <p>Desde la segunda mitad del siglo XX, las comunidades se organizan para recuperar tierras y exigir sus derechos. La Constitución de 1991 reconoce a Colombia como nación pluriétnica y multicultural, fortaleciendo los procesos de autonomía de los cabildos pijaos.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cultura" id="cultura">
+      <div class="contenedor">
+        <div class="sec-titulo"><span class="sec-num">04</span><h2>Cultura y cosmovisión</h2></div>
+        <div class="tarjetas">
+          <article class="tarjeta">
+            <svg viewBox="0 0 54 54" aria-hidden="true"><circle cx="27" cy="27" r="11" fill="#d99a3d"/><g stroke="#f2d488" stroke-width="3" stroke-linecap="round"><path d="M27 3v8M27 43v8M3 27h8M43 27h8M10 10l6 6M38 38l6 6M44 10l-6 6M16 38l-6 6"/></g></svg>
+            <h3>El sol, la luna y el agua</h3>
+            <p>Su espiritualidad se relaciona con los astros, los ríos, las lagunas y las montañas. La naturaleza no es un recurso, sino un ser vivo con el que se convive y al que se le pide permiso.</p>
+          </article>
+          <article class="tarjeta">
+            <svg viewBox="0 0 54 54" aria-hidden="true"><path d="M27 4c-8 10-8 36 0 46 8-10 8-36 0-46z" fill="#d99a3d"/><g fill="#f2d488"><circle cx="24" cy="16" r="2.2"/><circle cx="30" cy="16" r="2.2"/><circle cx="24" cy="23" r="2.2"/><circle cx="30" cy="23" r="2.2"/><circle cx="24" cy="30" r="2.2"/><circle cx="30" cy="30" r="2.2"/><circle cx="24" cy="37" r="2.2"/><circle cx="30" cy="37" r="2.2"/></g></svg>
+            <h3>El maíz</h3>
+            <p>Base de la alimentación y de la vida comunitaria. Del maíz nacen la chicha, los envueltos y las arepas, y alrededor de su siembra y cosecha se organizan el trabajo y la fiesta.</p>
+          </article>
+          <article class="tarjeta">
+            <svg viewBox="0 0 54 54" aria-hidden="true"><path d="M8 50c4-14 10-20 19-20s15 6 19 20z" fill="#d99a3d"/><circle cx="27" cy="18" r="10" fill="#f2d488"/><path d="M17 18h20" stroke="#8a3b1f" stroke-width="3"/></svg>
+            <h3>Los mohanes</h3>
+            <p>Sabedores y médicos tradicionales que conocían las plantas, interpretaban las señales de la naturaleza y guiaban a la comunidad. La figura del Mohán, guardián de los ríos, sigue viva en las leyendas del Tolima.</p>
+          </article>
+          <article class="tarjeta">
+            <svg viewBox="0 0 54 54" aria-hidden="true"><path d="M14 10h26l-4 10c6 4 8 10 8 16 0 9-8 14-17 14S10 45 10 36c0-6 2-12 8-16z" fill="#d99a3d"/><path d="M14 32h26M16 39h22" stroke="#8a3b1f" stroke-width="3"/></svg>
+            <h3>Cerámica y oficios</h3>
+            <p>La tradición alfarera, el tejido y la cestería conservan técnicas transmitidas por generaciones. El barro del Tolima guarda la huella de las manos indígenas.</p>
+          </article>
+          <article class="tarjeta">
+            <svg viewBox="0 0 54 54" aria-hidden="true"><path d="M27 6l8 12-8 12-8-12z M27 24l8 12-8 12-8-12z" fill="none" stroke="#d99a3d" stroke-width="4" stroke-linejoin="round"/></svg>
+            <h3>Pintura corporal</h3>
+            <p>Los cronistas relataron que los guerreros pijaos se pintaban el cuerpo con tintes vegetales como la bija (achiote) y la jagua, símbolos de fuerza, identidad y protección.</p>
+          </article>
+          <article class="tarjeta">
+            <svg viewBox="0 0 54 54" aria-hidden="true"><circle cx="16" cy="20" r="7" fill="#f2d488"/><circle cx="38" cy="20" r="7" fill="#f2d488"/><circle cx="27" cy="14" r="7" fill="#d99a3d"/><path d="M4 48c2-10 6-16 12-16s8 4 11 4 5-4 11-4 10 6 12 16z" fill="#d99a3d"/></svg>
+            <h3>Vida comunitaria</h3>
+            <p>La minga —el trabajo colectivo—, las asambleas y los cabildos son el centro de la organización pijao. Las decisiones importantes se toman en comunidad.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="galeria" id="galeria">
+      <div class="contenedor">
+        <div class="sec-titulo"><span class="sec-num">05</span><h2>Galería de símbolos</h2></div>
+        <p style="max-width:44rem;margin:-1rem 0 2.5rem">Motivos geométricos inspirados en la iconografía indígena del alto Magdalena: rombos, espirales y escalonados que evocan montañas, ríos y el camino del sol.</p>
+        <div class="motivos">
+          <figure class="motivo">
+            <svg viewBox="0 0 100 100" role="img" aria-label="Espiral">
+              <rect width="100" height="100" fill="#8a3b1f"/>
+              <path d="M50 50h8v-16H34v32h40V18H18v64h64" fill="none" stroke="#f2d488" stroke-width="5"/>
+            </svg>
+            <figcaption>Espiral del agua<small>El movimiento de los ríos y el tiempo que regresa.</small></figcaption>
+          </figure>
+          <figure class="motivo">
+            <svg viewBox="0 0 100 100" role="img" aria-label="Escalonado">
+              <rect width="100" height="100" fill="#2f5d5a"/>
+              <path d="M0 90h20V70h20V50h20V30h20V10h20" fill="none" stroke="#f6efe3" stroke-width="6"/>
+              <path d="M0 70h10V50h20V30h20V10" fill="none" stroke="#d99a3d" stroke-width="4"/>
+            </svg>
+            <figcaption>La montaña<small>La cordillera como refugio y lugar sagrado.</small></figcaption>
+          </figure>
+          <figure class="motivo">
+            <svg viewBox="0 0 100 100" role="img" aria-label="Rombos">
+              <rect width="100" height="100" fill="#1e1410"/>
+              <g fill="none" stroke="#d99a3d" stroke-width="4">
+                <path d="M50 8l42 42-42 42L8 50z"/><path d="M50 24l26 26-26 26-26-26z"/>
+              </g>
+              <path d="M50 40l10 10-10 10-10-10z" fill="#f2d488"/>
+            </svg>
+            <figcaption>Rombo guerrero<small>Inspirado en la pintura corporal de los antiguos pijaos.</small></figcaption>
+          </figure>
+          <figure class="motivo">
+            <svg viewBox="0 0 100 100" role="img" aria-label="Sol">
+              <rect width="100" height="100" fill="#d99a3d"/>
+              <circle cx="50" cy="50" r="18" fill="#8a3b1f"/>
+              <g stroke="#1e1410" stroke-width="5"><path d="M50 8v16M50 76v16M8 50h16M76 50h16M20 20l11 11M69 69l11 11M80 20L69 31M31 69L20 80"/></g>
+            </svg>
+            <figcaption>El sol<small>Fuente de vida para la siembra del maíz.</small></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="hoy" id="hoy">
+      <div class="contenedor dos-col">
+        <div>
+          <div class="sec-titulo"><span class="sec-num">06</span><h2>Los Pijaos hoy</h2></div>
+          <p>El pueblo Pijao está vivo. Miles de personas se reconocen como pijaos y se organizan en cabildos y resguardos, principalmente en el sur del Tolima, bajo organizaciones regionales que representan sus intereses ante el Estado.</p>
+          <p style="margin-top:1rem">Sus principales luchas giran en torno a la tierra, la educación propia, la salud intercultural, la protección del agua y la recuperación de su memoria y su lengua.</p>
+        </div>
+        <ul class="lista-hoy">
+          <li><span><strong>Territorio:</strong> recuperación y titulación de tierras para resguardos.</span></li>
+          <li><span><strong>Educación propia:</strong> escuelas que enseñan la historia y los saberes pijaos.</span></li>
+          <li><span><strong>Medicina tradicional:</strong> plantas y conocimientos que se transmiten entre generaciones.</span></li>
+          <li><span><strong>Memoria:</strong> rescate de palabras, cantos, relatos y danzas.</span></li>
+          <li><span><strong>Agua y naturaleza:</strong> defensa de ríos y montañas frente a proyectos que los amenazan.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="cita">
+      <blockquote>Conocer a los Pijaos es reconocer que la historia del Tolima y de Colombia también se escribió con resistencia indígena.</blockquote>
+      <p>Memoria · Identidad · Territorio</p>
+    </div>
+    <div class="greca" aria-hidden="true"></div>
+  </main>
+
+  <footer>
+    <p>Copyright ©2026, Alex Beltrán. Todos los derechos reservados.</p>
+    <p>Sitio con fines educativos y de divulgación sobre el pueblo indígena Pijao.</p>
+  </footer>
+
+</body>
+</html>
+<script async src="/.netlify/scripts/ar" data-netlify-deploy-id="6ae3d602bd17775eaa531623" data-netlify-site-id="fec816d8-4ea4-4729-9c59-7a78607e870d" data-agent-runner-id="6ae3d571f45839e058b458ae"></script>
+<script async src="/.netlify/scripts/hud?variant=owner-private" data-nf-variant="owner-private" data-netlify-site-id="fec816d8-4ea4-4729-9c59-7a78607e870d" data-app-host="app.netlify.com"></script>
