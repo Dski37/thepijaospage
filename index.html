@@ -253,78 +253,46 @@
       padding: 0.4rem 1.2rem; border-radius: 20px; font-size: 1.1rem; margin-bottom: 1.2rem;
     }
 
-    /* Gallery Section */
+    /* Gallery Section (Pure Visual Centered Grid) */
     .galeria-sec { background: var(--hueso); }
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(3, minmax(320px, 380px));
+      justify-content: center;
+      gap: 1.8rem;
     }
     .gallery-card {
       background: #fff;
-      border-radius: 10px;
+      border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 6px 20px rgba(0,0,0,0.08);
       transition: var(--transicion);
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
+      height: 280px;
     }
     .gallery-card:hover {
       transform: translateY(-8px);
-      box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.18);
     }
-    .gallery-img-wrapper {
-      height: 240px;
-      overflow: hidden;
-      position: relative;
-    }
-    .gallery-img-wrapper img {
+    .gallery-card img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.5s ease;
+      transition: transform 0.6s ease;
     }
-    .gallery-card:hover .gallery-img-wrapper img {
+    .gallery-card:hover img {
       transform: scale(1.08);
     }
-    .gallery-info {
-      padding: 1.5rem;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .gallery-info h3 { font-size: 1.3rem; color: var(--tierra); margin-bottom: 0.6rem; }
-    .gallery-info p { font-size: 0.98rem; color: #444; line-height: 1.6; }
-    .gallery-tag { 
-      font-size: 0.8rem; font-weight: 700; color: var(--barro); 
-      text-transform: uppercase; letter-spacing: 0.1em; margin-top: 1rem;
-    }
 
-    /* Lightbox Modal */
-    .lightbox {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.9);
-      display: flex; align-items: center; justify-content: center;
-      z-index: 2000; opacity: 0; pointer-events: none;
-      transition: opacity 0.3s ease;
-      padding: 2rem;
+    @media (max-width: 1100px) {
+      .gallery-grid {
+        grid-template-columns: repeat(2, minmax(300px, 380px));
+      }
     }
-    .lightbox.active { opacity: 1; pointer-events: auto; }
-    .lightbox-content {
-      max-width: 900px; width: 100%; background: var(--hueso); border-radius: 12px;
-      overflow: hidden; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    @media (max-width: 700px) {
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
     }
-    .lightbox-img { width: 100%; max-height: 500px; object-fit: cover; }
-    .lightbox-text { padding: 2rem; }
-    .lightbox-close {
-      position: absolute; top: 15px; right: 20px; color: #fff; font-size: 2rem;
-      cursor: pointer; background: rgba(0,0,0,0.5); width: 40px; height: 40px;
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      transition: background 0.2s;
-    }
-    .lightbox-close:hover { background: var(--barro); }
 
     /* Pijaos Today */
     .hoy { background: #fff; }
@@ -348,6 +316,7 @@
       .hero { padding: 7rem 1.25rem 7rem; }
       .slang-box { padding: 2rem; }
       .slideshow-responsive { height: 260px; }
+      .gallery-card { height: 240px; }
     }
   </style>
 </head>
@@ -424,7 +393,7 @@
       </div>
     </section>
 
-    <!-- Section: Territory & Auto Slideshow (Local files linked) -->
+    <!-- Section: Territory & Auto Slideshow -->
     <section class="territorio" id="territory">
       <div class="contenedor">
         <div class="sec-header reveal">
@@ -526,7 +495,7 @@
         <div class="cultura-grid">
           <!-- Card 1: Mother Earth -->
           <article class="cultura-card reveal">
-            <img src="https://images.pexels.com/photos/618833/pexels-photo-618833.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Nevado del Tolima and Andean forest">
+            <img src="https://images.pexels.com/photos/618833/pexels-photo-618833.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Sacred native forest and Mother Earth">
             <div class="cultura-content">
               <h3>Mother Earth (Lulomoy)</h3>
               <p>Spiritual life centers on deep respect for nature. They revere Mother Earth, known spiritually as <em>Lulomoy</em>. Rivers, mountains, and forests are sacred beings that must be protected and respected.</p>
@@ -535,7 +504,7 @@
 
           <!-- Card 2: Corn -->
           <article class="cultura-card reveal">
-            <img src="https://images.pexels.com/photos/547263/pexels-photo-547263.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Native corn crop harvest">
+            <img src="corn.jpg" alt="Corn crop harvest">
             <div class="cultura-content">
               <h3>Sacred Corn & Gastronomy</h3>
               <p>Corn is the foundation of life and community. From corn, they prepare traditional <em>Chicha</em> (fermented beverage used in rituals), <em>Tamales Tolimenses</em>, and <em>Lechón</em>. They also cook river fish like <em>Viudo de Pescado</em>.</p>
@@ -544,7 +513,7 @@
 
           <!-- Card 3: El Mohan -->
           <article class="cultura-card reveal">
-            <img src="https://images.pexels.com/photos/709552/pexels-photo-709552.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Magdalena river stream">
+            <img src="ElMohan.jpg" alt="El Mohan sculpture">
             <div class="cultura-content">
               <h3>El Mohán & Guardians</h3>
               <p>Traditional folklore includes protective spirits like <em>El Mohán</em>, the guardian of rivers and waters. Wise elders and traditional healers (Curanderos) hold essential knowledge about medicinal plants.</p>
@@ -553,16 +522,16 @@
 
           <!-- Card 4: Music -->
           <article class="cultura-card reveal">
-            <img src="https://images.pexels.com/photos/164938/pexels-photo-164938.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Folk music instruments">
+            <img src="MusicaYCelebraciones.jpg" alt="Music and celebrations">
             <div class="cultura-content">
               <h3>Music & Celebrations</h3>
               <p>Their musical identity includes regional rhythms like <em>Bambuco</em>, <em>Sanjuanero</em>, and <em>Rajaleña</em>. They play cane flutes (flautas de carrizo), drums, maracas, and the traditional <em>ciempiés</em> instrument during San Juan festivals in June.</p>
             </div>
           </article>
 
-          <!-- Card 5: Pottery -->
+          <!-- Card 5: Body Painting -->
           <article class="cultura-card reveal">
-            <img src="https://images.pexels.com/photos/220769/pexels-photo-220769.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Clay pottery craftsmanship">
+            <img src="BodyPainting.jpg" alt="Indigenous person with traditional body paint">
             <div class="cultura-content">
               <h3>Body Painting & Craftsmanship</h3>
               <p>Historically, Pijao warriors painted their bodies with natural dyes from <em>achiote</em> (bija) and <em>jagua</em>. Today, artisan pottery and weaving preserve these ancient geometric patterns.</p>
@@ -571,7 +540,7 @@
 
           <!-- Card 6: Minga -->
           <article class="cultura-card reveal">
-            <img src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Community teamwork Minga">
+            <img src="MingaSystem.jpg" alt="Minga system collective work">
             <div class="cultura-content">
               <h3>The Minga System</h3>
               <p>Community life relies on the <em>Minga</em>—a collective work tradition where community members collaborate to build roads, harvest crops, or organize events for the shared good without monetary pay.</p>
@@ -594,102 +563,33 @@
       </div>
     </section>
 
-    <!-- Section: Gallery -->
+    <!-- Section: Gallery (Pure Visual Grid with exactly 5 images, perfectly centered) -->
     <section class="galeria-sec" id="gallery">
       <div class="contenedor">
         <div class="sec-header reveal">
-          <span class="sub-tag">Visual Representation</span>
+          <span class="sub-tag">Visual Identity</span>
           <h2>Gallery</h2>
-          <p style="margin-top:0.5rem; color:#666;">Explore photographic highlights showcasing the landscapes, community life, and cultural symbols of the Pijao region.</p>
         </div>
 
         <div class="gallery-grid">
-          <!-- Gallery Card 1 -->
-          <article class="gallery-card reveal" onclick="openLightbox('https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg?auto=compress&cs=tinysrgb&w=1200', 'Andean Mountain Peak Views', 'The majestic Cordillera Central provided natural shelter and strategic advantage for Pijao resistance fighters during the colonial era.')">
-            <div class="gallery-img-wrapper">
-              <img src="https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Cordillera Central peaks">
-            </div>
-            <div class="gallery-info">
-              <h3>Andean Mountain Views</h3>
-              <p>The rugged peaks of the Andes frame the ancestral territory where Pijao communities maintain their roots.</p>
-              <span class="gallery-tag">Landscape</span>
-            </div>
-          </article>
-
-          <!-- Gallery Card 2 -->
-          <article class="gallery-card reveal" onclick="openLightbox('https://images.pexels.com/photos/2422290/pexels-photo-2422290.jpeg?auto=compress&cs=tinysrgb&w=1200', 'Community Unity and Gathering', 'Local cabildos gather in communal assemblies to discuss territorial defense, education, and cultural revitalization projects.')">
-            <div class="gallery-img-wrapper">
-              <img src="https://images.pexels.com/photos/2422290/pexels-photo-2422290.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Community assembly">
-            </div>
-            <div class="gallery-info">
-              <h3>Community Assemblies</h3>
-              <p>Cabildo meetings embody participatory democracy, where every family contributes to collective decisions.</p>
-              <span class="gallery-tag">Governance</span>
-            </div>
-          </article>
-
-          <!-- Gallery Card 3 -->
-          <article class="gallery-card reveal" onclick="openLightbox('https://images.pexels.com/photos/158607/cairn-fog-mystic-background-158607.jpeg?auto=compress&cs=tinysrgb&w=1200', 'Lush Tolima Green Valleys', 'The tropical valleys along the Magdalena and Saldaña river basins sustain rich agriculture, coffee, and fruit crops.')">
-            <div class="gallery-img-wrapper">
-              <img src="https://images.pexels.com/photos/158607/cairn-fog-mystic-background-158607.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Green valley landscape">
-            </div>
-            <div class="gallery-info">
-              <h3>Lush Tolima Valleys</h3>
-              <p>Fertile soils watered by Andean streams nurture traditional crops like corn, plantain, and yucca.</p>
-              <span class="gallery-tag">Environment</span>
-            </div>
-          </article>
-
-          <!-- Gallery Card 4 -->
-          <article class="gallery-card reveal" onclick="openLightbox('https://images.pexels.com/photos/1139743/pexels-photo-1139743.jpeg?auto=compress&cs=tinysrgb&w=1200', 'Traditional Wisdom Holders', 'Elders keep the historical memory alive, teaching the young generation about plants, local history, and respect for elders.')">
-            <div class="gallery-img-wrapper">
-              <img src="https://images.pexels.com/photos/1139743/pexels-photo-1139743.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Elder wisdom keeper">
-            </div>
-            <div class="gallery-info">
-              <h3>Keepers of Oral Memory</h3>
-              <p>Wise community elders pass down traditional knowledge, ensuring cultural continuity across generations.</p>
-              <span class="gallery-tag">Oral History</span>
-            </div>
-          </article>
-
-          <!-- Gallery Card 5 -->
-          <article class="gallery-card reveal" onclick="openLightbox('https://images.pexels.com/photos/4577382/pexels-photo-4577382.jpeg?auto=compress&cs=tinysrgb&w=1200', 'Traditional Handmade Textiles', 'Weaving and textile crafts reflect geometric patterns inspired by nature, mountains, and the spiral of rivers.')">
-            <div class="gallery-img-wrapper">
-              <img src="https://images.pexels.com/photos/4577382/pexels-photo-4577382.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Geometric weaving">
-            </div>
-            <div class="gallery-info">
-              <h3>Traditional Weaving</h3>
-              <p>Intricate textile patterns preserve ancient geometric symbolism representing mountains and rivers.</p>
-              <span class="gallery-tag">Artisanal Craft</span>
-            </div>
-          </article>
-
-          <!-- Gallery Card 6 -->
-          <article class="gallery-card reveal" onclick="openLightbox('https://images.pexels.com/photos/15286/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1200', 'Protected Nature Reserves', 'Pijao communities fight to preserve natural water sources and native forests from external mining threats.')">
-            <div class="gallery-img-wrapper">
-              <img src="https://images.pexels.com/photos/15286/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=600" alt="Nature reserve">
-            </div>
-            <div class="gallery-info">
-              <h3>Protected Reserves</h3>
-              <p>Guardianship over local ecosystems safeguards biodiversity and pristine water streams in southern Tolima.</p>
-              <span class="gallery-tag">Conservation</span>
-            </div>
-          </article>
+          <div class="gallery-card reveal">
+            <img src="galeria 1.jpg" alt="Galeria 1">
+          </div>
+          <div class="gallery-card reveal">
+            <img src="galeria 2.jpg" alt="Galeria 2">
+          </div>
+          <div class="gallery-card reveal">
+            <img src="galeria 3.jpg" alt="Galeria 3">
+          </div>
+          <div class="gallery-card reveal">
+            <img src="galeria 5.jpg" alt="Galeria 5">
+          </div>
+          <div class="gallery-card reveal">
+            <img src="galeria 6.jpg" alt="Galeria 6">
+          </div>
         </div>
       </div>
     </section>
-
-    <!-- Lightbox Modal -->
-    <div class="lightbox" id="lightbox">
-      <div class="lightbox-content">
-        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
-        <img src="" alt="" id="lightbox-img" class="lightbox-img">
-        <div class="lightbox-text">
-          <h3 id="lightbox-title" style="color:var(--tierra); margin-bottom:0.5rem;"></h3>
-          <p id="lightbox-desc" style="color:#333; font-size:1.05rem;"></p>
-        </div>
-      </div>
-    </div>
 
     <!-- Section: Pijaos Today -->
     <section class="hoy" id="today">
@@ -807,31 +707,6 @@
 
     document.querySelectorAll('.reveal').forEach(el => {
       revealObserver.observe(el);
-    });
-
-    // 3. Lightbox Functions for Gallery
-    function openLightbox(imgSrc, title, desc) {
-      document.getElementById('lightbox-img').src = imgSrc;
-      document.getElementById('lightbox-title').innerText = title;
-      document.getElementById('lightbox-desc').innerText = desc;
-      document.getElementById('lightbox').classList.add('active');
-    }
-
-    function closeLightbox() {
-      document.getElementById('lightbox-img').src = '';
-      document.getElementById('lightbox').classList.remove('active');
-    }
-
-    document.getElementById('lightbox').addEventListener('click', function(e) {
-      if (e.target === this) {
-        closeLightbox();
-      }
-    });
-
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        closeLightbox();
-      }
     });
   </script>
 </body>
